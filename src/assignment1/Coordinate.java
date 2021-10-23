@@ -19,4 +19,10 @@ public class Coordinate {
         char letter = Utils.convertIntToLetter(col + 1);
         return String.format("%c%d", letter, row + 1);
     }
+
+    
+    public boolean equals(Coordinate coord2) {
+        return ((this.row == coord2.row) && (this.col == coord2.col));
+    }
+    
 }

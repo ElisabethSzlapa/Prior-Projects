@@ -136,13 +136,19 @@ public class ThreeMusketeers {
      * does the move on the board.
      * @param agent Agent to get the move from.
      */
-    protected void move(final Agent agent) { // TODO
-    }
+    protected void move(final Agent agent) {
 
+        Move curr_move = agent.getMove(); //gets a move for the agent
+        Move copy = new Move(curr_move);
+        moves.add(copy); //adds move to the moves stack
+        agent.board.move(curr_move); //does the move on the board
+        } 
     /**
      * Removes a move from the top of the moves stack and undoes the move on the board.
      */
-    private void undoMove() { // TODO
+    private void undoMove() { 
+    board.undoMove(moves.get(moves.size() - 1)); //calls undoMove on the top move of the stack
+    moves.remove(moves.size() - 1); //removes the top move from the stack
     }
 
     /**

@@ -11,7 +11,9 @@ public class BoardEvaluatorImpl implements BoardEvaluator {
      * @return int Score of the given Board
      */
     @Override
-    public int evaluateBoard(Board board) { // TODO
-        return 0;
+    public int evaluateBoard(Board board) { 
+    	int originalGuardCount = 22; //original number of guards on a 5 by 5 board
+    	
+        return originalGuardCount - board.getGuardCells().size(); //returns the original guard count minus the remaining guards
     }
 }

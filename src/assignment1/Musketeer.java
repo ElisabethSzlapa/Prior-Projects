@@ -13,6 +13,9 @@ public class Musketeer extends Piece {
      */
     @Override
     public boolean canMoveOnto(Cell cell) { // TODO
-        return true;
+    	if (cell.getPiece().getType() == Type.GUARD || cell.getPiece() == null) { //guards can move onto empty spaces or spaces occupied by guards
+    		return true;
+    	}
+    	return false;
     }
 }
