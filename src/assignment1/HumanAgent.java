@@ -19,7 +19,7 @@ public class HumanAgent extends Agent {
      * @return the valid human inputted Move
      */
     @Override
-    public Move getMove() { // TODO
+    public Move getMove() {
 
     	
     	System.out.println("""
