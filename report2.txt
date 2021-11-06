@@ -1,0 +1,84 @@
+Autotested Results for a1 submitted by ELISABETH SZLAPA (szlapael)
+Generated at 2021-11-05T14:52:58
+
+Summary of Results: 19 out of 21 tests successfully passed
+--
+
+Tests for assignment1.MusketeerTest (2/3 passed)
+--
+
+1) Test to check if the musketeer can move to a cell with a musketeer                 .. ok!
+2) Test to check if the muketeer can move to a cell with a guard                      .. ok!
+3) Test to check if the musketeer can move to an empty cell                           .. failed
+.. because Cannot invoke "assignment1.Piece.getType()" because the return value of "assignment1.Cell.getPiece()" is null (details below):
+
+    java.lang.NullPointerException: Cannot invoke "assignment1.Piece.getType()" because the return value of "assignment1.Cell.getPiece()" is null
+    	at assignment1.Musketeer.canMoveOnto(Musketeer.java:16)
+    	at assignment1.MusketeerTest.testCanMoveOnto_MoveOntoEmptyCell(MusketeerTest.java:24)
+    	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:78)
+    	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
+    	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+    	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+    	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+    	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+    	at org.junit.internal.runners.statements.FailOnTimeout$CallableStatement.call(FailOnTimeout.java:298)
+    	at org.junit.internal.runners.statements.FailOnTimeout$CallableStatement.call(FailOnTimeout.java:292)
+    	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+    	at java.base/java.lang.Thread.run(Thread.java:831)
+
+
+
+
+Tests for assignment1.GuardTest (3/3 passed)
+--
+
+1) Test to check if the guard can move to an empty cell                               .. ok!
+2) Test to check if the guard can move to a cell with a guard                         .. ok!
+3) Test to check if the guard can move to a cell with a musketeer                     .. ok!
+
+
+Tests for assignment1.BoardTest (14/15 passed)
+--
+
+1) Test to check if the isGameOver() works when guard is able to move                 .. ok!
+2) Test to check if the previous move is undone correctly                             .. ok!
+3) Test to check if the isGameOver() works when Guard Wins due to same row            .. ok!
+4) Test whether new Board has Musketeer Pieces                                        .. ok!
+5) Test to check if the getPossibleCells() works correctly                            .. ok!
+6) Test to check if the isGameOver() works when Guard Wins due to same col            .. ok!
+7) Test to check if the isValidMove() method works for a Invalid Move not next to    
+the piece                                                                             .. ok!
+8) Test to check if the isGameOver() works when game is not over                      .. ok!
+9) Test to check if a move is made correctly                                          .. ok!
+10) Test to check if the isValidMove() method works for a Valid Move                   .. ok!
+11) Test to check if getCell() method gets the correct cell                            .. ok!
+12) Test whether new Board has Guard Pieces                                            .. ok!
+13) Test to check if the isValidMove() method works for a Invalid Move with wrong     
+piece                                                                                 .. ok!
+14) Test to check if the getPossibleDestinations() works correctly                     .. ok!
+15) Test to check if the isGameOver() works when Musketeer Wins                        .. failed
+.. because java.lang.AssertionError (details below):
+
+    java.lang.AssertionError
+    	at org.junit.Assert.fail(Assert.java:86)
+    	at org.junit.Assert.assertTrue(Assert.java:41)
+    	at org.junit.Assert.assertTrue(Assert.java:52)
+    	at assignment1.BoardTest.testIsGameOver_MusketeerWon(BoardTest.java:228)
+    	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:78)
+    	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
+    	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+    	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+    	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+    	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+    	at org.junit.internal.runners.statements.FailOnTimeout$CallableStatement.call(FailOnTimeout.java:298)
+    	at org.junit.internal.runners.statements.FailOnTimeout$CallableStatement.call(FailOnTimeout.java:292)
+    	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+    	at java.base/java.lang.Thread.run(Thread.java:831)
+
+
+
+
