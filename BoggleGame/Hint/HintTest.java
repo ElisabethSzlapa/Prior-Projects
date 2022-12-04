@@ -1,8 +1,6 @@
 package Hint;
 
-import org.junit.Test;
-
-import javax.swing.plaf.PanelUI;
+import org.testng.annotations.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
