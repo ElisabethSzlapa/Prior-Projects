@@ -3,7 +3,6 @@ package Hint;
 import java.util.Set;
 
 public class Hint_character implements Hint_function {
-    public static Set<String> word;//all words from the boggle board
     /**
      * Override the hint function
      * only show the first and last character, other parts hide with "*".
@@ -13,7 +12,8 @@ public class Hint_character implements Hint_function {
     public String hint() {
         //get all word from the boggle board
         HintMain h = new HintMain();
-        word = h.get_word();
+        //all words from the boggle board
+        Set<String> word = h.get_word();
 
         //get one word and return it to player
         Object[] word_array = word.toArray();

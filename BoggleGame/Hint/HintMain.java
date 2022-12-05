@@ -44,7 +44,7 @@ public class HintMain {
     public void main() {
         scanner = new Scanner(System.in);
         System.out.println("☆--------------------HINT---------------------☆");
-        System.out.println("1-Get a position of a word");
+        System.out.println("1-Get character");
         System.out.println("2-Get the first and last character");
         System.out.println("3-Get a word");
         System.out.println("E-Exit hint");
