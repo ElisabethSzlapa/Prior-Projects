@@ -4,6 +4,8 @@ import Highscores.Highscores;
 import Highscores.braille.BrailleLetterException;
 
 import java.io.IOException;
+import Hint.*;
+
 import java.util.*;
 
 /**
@@ -145,6 +147,9 @@ public class BoggleGame {
         //step 3. find all legal words on the board, given the dictionary and grid arrangement.
         Map<String, ArrayList<Position>> allWords = new HashMap<String, ArrayList<Position>>();
         findAllWords(allWords, boggleDict, grid);
+        //initialize the hint and add all words in hint list
+        HintMain h = new HintMain();
+        h.addwords(allWords);
         //step 4. allow the user to try to find some words on the grid
         humanMove(grid, allWords);
         //step 5. allow the computer to identify remaining words
@@ -290,7 +295,6 @@ public class BoggleGame {
             //the position is not correct, so remove it from list.
             wordPosition.remove(next_position);
 
-
         }
 
 
@@ -308,12 +312,22 @@ public class BoggleGame {
     private void humanMove(BoggleGrid board, Map<String, ArrayList<Position>> allWords) {
         System.out.println("It's your turn to find some words!");
         while (true) {
+            System.out.println("Enter H to get a hint");
             //You write code here!
             //step 1. Print the board for the user, so they can scan it for words
             System.out.println(board);
             //step 2. Get a input (a word) from the user via the console
             String input_word = this.scanner.nextLine().toUpperCase();
             //step 3. Check to see if it is valid (note validity checks should be case-insensitive)
+
+            //Hint
+            if (input_word.equals("H")) {
+                HintMain h = new HintMain();
+                h.main();
+                input_word = this.scanner.nextLine().toUpperCase();
+            }
+
+
             //step 4. If it's valid, update the player's word list and score (stored in boggleStats)
             if (allWords.containsKey(input_word) && !this.gameStats.getPlayerWords().contains(input_word)) {
                 this.gameStats.addWord(input_word, BoggleStats.Player.Human);
