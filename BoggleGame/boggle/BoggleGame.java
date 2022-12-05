@@ -320,7 +320,7 @@ public class BoggleGame {
             String input_word = this.scanner.nextLine().toUpperCase();
             //step 3. Check to see if it is valid (note validity checks should be case-insensitive)
 
-            //Hint
+            //Hint function  when user need a hint to help user play the game
             if (input_word.equals("H")) {
                 HintMain h = new HintMain();
                 h.main();

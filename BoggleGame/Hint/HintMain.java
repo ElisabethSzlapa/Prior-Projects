@@ -80,13 +80,6 @@ public class HintMain {
         allword.addAll(words.keySet());
     }
 
-    public void addposition(ArrayList<Position> po){
-        if (!word_position.isEmpty()) word_position.clear();
-        word_position.addAll(po);
-    }
-
-
-
     /**
      * get the allword set when other call this method.
      *
@@ -96,14 +89,9 @@ public class HintMain {
         return allword;
     }
 
-    /**
-     * get the word position when other call this method.
-     * @return word_position
-     */
-    public ArrayList<Position> get_position(){
-        return word_position;
-    }
 
+    /*
+    // debug
     public static void main(String[] args) {
         //HintMain h = new HintMain();
         //h.main();
@@ -117,6 +105,7 @@ public class HintMain {
         }
     }
 
+     *///debug
 
 }
 

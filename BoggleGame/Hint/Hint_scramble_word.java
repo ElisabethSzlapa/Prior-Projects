@@ -14,6 +14,7 @@ public class Hint_scramble_word implements Hint_function{
         //get one word and return it to player
         Object[] word_array = word.toArray();
         String hint = word_array[0].toString();
+
         //remove the word from the set
         word.remove(hint);
 
