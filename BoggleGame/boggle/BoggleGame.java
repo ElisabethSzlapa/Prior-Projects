@@ -1,5 +1,9 @@
 package boggle;
 
+import Highscores.Highscores;
+import Highscores.braille.BrailleLetterException;
+
+import java.io.IOException;
 import Hint.*;
 
 import java.util.*;
@@ -17,6 +21,7 @@ public class BoggleGame {
      * stores game statistics
      */
     private BoggleStats gameStats;
+    private Highscores highScores;
 
     /**
      * dice used to randomize letter assignments for a small grid
@@ -38,6 +43,7 @@ public class BoggleGame {
     public BoggleGame() {
         this.scanner = new Scanner(System.in);
         this.gameStats = new BoggleStats();
+        this.highScores = new Highscores();
     }
 
     /*
@@ -348,6 +354,12 @@ public class BoggleGame {
             if (!this.gameStats.getPlayerWords().contains(word)) {
                 this.gameStats.addWord(word, BoggleStats.Player.Computer);
             }
+    }
+
+    //highscore pull
+    public void getScores() throws IOException, BrailleLetterException {
+        this.highScores.scoreExplanation();
+        this.highScores.scoreInterface();
     }
 
 }
