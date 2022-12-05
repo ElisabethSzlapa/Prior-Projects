@@ -8,7 +8,7 @@ public class HintTest {
 
     @Test
     public void loacation(){
-        Hint hint_location = new Hint(new Hint_location());
+        Hint hint_location = new Hint(new Hint_scramble_word());
         String lo = "here is location";
         assertEquals(lo,hint_location.hint());
     }

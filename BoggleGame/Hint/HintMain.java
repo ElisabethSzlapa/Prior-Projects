@@ -21,7 +21,7 @@ public class HintMain {
         if (ct.equals("1")) {
             //initialize the hint_location
             //show the hint for player
-            Hint hint_location = new Hint(new Hint_location());
+            Hint hint_location = new Hint(new Hint_scramble_word());
             System.out.println(hint_location.hint());
         } else if (ct.equals("2")) {
             //initialize the hint_character
