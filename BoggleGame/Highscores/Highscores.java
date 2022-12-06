@@ -54,21 +54,21 @@ public class Highscores {
     }
 
 
-    public void scoreExplanation(){
+    public void scoreExplanation() throws IOException, BrailleLetterException {
         System.out.println("There are three types of scoreboards to see;");
         System.out.println("Point based, with the 10 highest scores for points won,");
         System.out.println("Ratio based, with the 10 highest scores for the highest ratio of words found to words possible on the board,");
         System.out.println("and Personal bests, the best score that every user who's played has received.");
-        System.out.println("0111001110101100111010111010000110100001111010100100011100101010011010100010010100\n" +
-                "1010000101000100101101100111001111010010000111011000100100101100101010010011101100\n" +
-                "0000001110110000101000000010001000000010001010001000001000001000001010000000001000");
+        scoreInterface();
     }
     public void scoreInterface() throws IOException, BrailleLetterException {
         System.out.println("To see point scores, press 1. To see ratio scores, press 2.");
-        System.out.println("To see personal bests, press 3. And to have the boards explained again, hit 0.");
+        System.out.println("To see personal bests, press 3.");
         System.out.println("Want to exit the scoreboard system? Hit 4.");
+        System.out.println("0111001110101100111010111010000110100001111010100100011100101010011010100010010100\n" +
+                "1010000101000100101101100111001111010010000111011000100100101100101010010011101100\n" +
+                "0000001110110000101000000010001000000010001010001000001000001000001010000000001000");
         String choice = scanner.nextLine();
-        System.out.println(choice);
         while(true) {
             if (Objects.equals(choice, "1")) {
                 formatted(pointHighscores);
@@ -83,10 +83,6 @@ public class Highscores {
                 formatted(allUsersHighscores);
                 break;
             }
-            if (Objects.equals(choice, "0")) {
-                scoreInterface();
-                break;
-            }
             if (Objects.equals(choice, "6")){
                 brailleMode();
                 break;
@@ -94,12 +90,11 @@ public class Highscores {
             if (Objects.equals(choice, "4")) {
                 break;
             }
-            while (choice != "1" && choice != "2" && choice != "3" && choice != "4" && choice!= "6" && choice != "0"){
+            else {
                 System.out.println("That's not one of the numbers! Changed your mind about seeing the scores? Hit 4 to exit.");
-                if (choice == "4"){
-                    break;
-                }
             }
+
+
         }
     }
     public void formatted(Map<String, Integer> scoreboard) throws IOException, BrailleLetterException {
@@ -116,7 +111,7 @@ public class Highscores {
     public void brailleMode() throws IOException, BrailleLetterException {
         BrailleTranslator translator = new BrailleTranslator();
         System.out.println(translator.translateLine("To see point scores, press 1. To see ratio scores, press 2."));
-        System.out.println(translator.translateLine("To see personal bests, press 3. And to have the boards explained again, hit 0."));
+        System.out.println(translator.translateLine("To see personal bests, press 3."));
         System.out.println(translator.translateLine("Want to exit the scoreboard system? Hit 4."));
         String choice = scanner.nextLine();
         while(true) {
@@ -133,20 +128,15 @@ public class Highscores {
                 formattedBraille(allUsersHighscores);
                 break;
             }
-            if (choice == "0") {
-                scoreInterface();
-                break;
-            }
 
             if (choice == "4") {
                 break;
             }
-            while (choice != "1" && choice != "2" && choice != "3" && choice != "4" && choice != "0") {
+            else {
                 System.out.println(translator.translateLine("Changed your mind about seeing the scores? Hit 4 to exit."));
-                if (choice == "4") {
-                    break;
-                }
+
             }
+
         }
     }
 
