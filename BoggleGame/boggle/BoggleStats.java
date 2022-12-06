@@ -2,6 +2,7 @@ package boggle;
 
 import java.util.HashSet;
 import java.util.Set;
+import ScoreCalculator.*;
 
 /**
  * The BoggleStats class for the first Assignment in CSC207, Fall 2022
@@ -46,6 +47,7 @@ public class BoggleStats {
      */
     private int round;
 
+
     /**
      * enumarable types of players (human or computer)
      */
@@ -75,6 +77,8 @@ public class BoggleStats {
         this.round = 0;
         this.playerWords = new HashSet<String>();
         this.computerWords = new HashSet<String>();
+
+
     }
 
     /*
@@ -149,7 +153,7 @@ public class BoggleStats {
      */
     public void summarizeRound() {
         System.out.println(Player.Human + ":");
-        System.out.printf("You score are %d\n", this.pScore);
+        System.out.printf("You score are %d\n", this.pScore );
         System.out.printf("You found %d words\n", this.playerWords.size());
         for (String word : this.playerWords) {
             System.out.print(word);
@@ -210,5 +214,6 @@ public class BoggleStats {
     public int getScore() {
         return this.pScore;
     }
+
 
 }

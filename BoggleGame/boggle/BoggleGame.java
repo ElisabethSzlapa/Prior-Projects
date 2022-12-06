@@ -5,6 +5,8 @@ import Highscores.braille.BrailleLetterException;
 
 import java.io.IOException;
 import Hint.*;
+import ScoreCalculator2.ScoreCalculator;
+import ScoreCalculator2.ScoreCalculatorMain;
 
 import java.util.*;
 
@@ -26,17 +28,26 @@ public class BoggleGame {
     /**
      * dice used to randomize letter assignments for a small grid
      */
-    private final String[] dice_small_grid = //dice specifications, for small and large grids
+    private final String[] dice_easy_grid = //dice specifications, for small and large grids
             {"AAEEGN", "ABBJOO", "ACHOPS", "AFFKPS", "AOOTTW", "CIMOTU", "DEILRX", "DELRVY",
                     "DISTTY", "EEGHNW", "EEINSU", "EHRTVW", "EIOSST", "ELRTTY", "HIMNQU", "HLNNRZ"};
     /**
      * dice used to randomize letter assignments for a big grid
      */
-    private final String[] dice_big_grid =
+    private final String[] dice_normal_grid =
             {"AAAFRS", "AAEEEE", "AAFIRS", "ADENNN", "AEEEEM", "AEEGMU", "AEGMNN", "AFIRSY",
                     "BJKQXZ", "CCNSTW", "CEIILT", "CEILPT", "CEIPST", "DDLNOR", "DDHNOT", "DHHLOR",
                     "DHLNOR", "EIIITT", "EMOTTT", "ENSSSU", "FIPRSY", "GORRVW", "HIPRRY", "NOOTUW", "OOOTTU"};
 
+    private final String[] dice_hard_grid =
+            {"POISYQ", "EADXWE", "SDXGHU", "SSSTNJ", "ADDTMLP", "PPIYOM", "NNDYWTR", "CCCSER",
+                    "BBSBGH", "DEWWRT", "GGKMHT", "SHHMRT", "QWEXEN", "RHYWEE", "GBNGHH", "LKUPWE",
+                    "AQAWRE", "BBCVGA", "GIHTWQ", "HWETTU", "FFDOMN", "QWSSSW", "GHACBN", "AWWYUI", "POMKLK",
+                    "ASBGRT", "AXCDSE", "ASERTH", "YJUIOM", "ASSAWT", "FFRETU", "BVBNHG", "YHMJUK",
+                    "AWSCBH", "DDQWRR", "THNBNM"};
+
+
+    private List<String> guessed_words;
     /*
      * BoggleGame constructor
      */
@@ -44,6 +55,11 @@ public class BoggleGame {
         this.scanner = new Scanner(System.in);
         this.gameStats = new BoggleStats();
         this.highScores = new Highscores();
+
+        guessed_words = new ArrayList<>();
+
+
+
     }
 
     /*
@@ -68,22 +84,34 @@ public class BoggleGame {
      * It will loop until the user indicates they are done playing.
      */
     public void playGame() {
-        int boardSize;
+        int boardSize = 0;
         while (true) {
 
-            System.out.println("Enter 1 to play on a big (5x5) grid; 2 to play on a small (4x4) one:");
+            System.out.println("Enter hard to play on a hard (6x6) grid; normal to play on a normal (5x5); easy to play on a normal (4x4):");
             String choiceGrid = scanner.nextLine();
 
             //get grid size preference
             if (choiceGrid == "") break; //end game if user inputs nothing
-            while (!choiceGrid.equals("1") && !choiceGrid.equals("2")) {
+            while (!choiceGrid.equals("hard") && !choiceGrid.equals("normal") && !choiceGrid.equals("easy")) {
                 System.out.println("Please try again.");
-                System.out.println("Enter 1 to play on a big (5x5) grid; 2 to play on a small (4x4) one:");
+                System.out.println("Enter hard to play on a hard (6x6) grid; normal to play on a normal (5x5); easy to play on a normal (4x4):");
                 choiceGrid = scanner.nextLine();
             }
 
-            if (choiceGrid.equals("1")) boardSize = 5;
-            else boardSize = 4;
+            if (choiceGrid.equals("hard")) {
+                ScoreCalculatorMain calculatorMain = new ScoreCalculatorMain();
+                calculatorMain.gameMode(choiceGrid);
+                boardSize = 6;
+
+            }
+            if (choiceGrid.equals("normal")){
+                boardSize = 5;
+
+            }
+            if (choiceGrid.equals("easy")) {
+                boardSize = 4;
+
+            }
 
             //get letter choice preference
             System.out.println("Enter 1 to randomly assign letters to the grid; 2 to provide your own.");
@@ -117,14 +145,14 @@ public class BoggleGame {
             System.out.println("Play again? Type 'Y' or 'N'");
             String choiceRepeat = scanner.nextLine().toUpperCase();
 
-            if (choiceRepeat == "") break; //end game if user inputs nothing
-            while (!choiceRepeat.equals("Y") && !choiceRepeat.equals("N")) {
+            if(choiceRepeat == "") break; //end game if user inputs nothing
+            while(!choiceRepeat.equals("Y") && !choiceRepeat.equals("N")){
                 System.out.println("Please try again.");
                 System.out.println("Play again? Type 'Y' or 'N'");
                 choiceRepeat = scanner.nextLine().toUpperCase();
             }
 
-            if (choiceRepeat == "" || choiceRepeat.equals("N")) break; //end game if user inputs nothing
+            if(choiceRepeat == "" || choiceRepeat.equals("N")) break; //end game if user inputs nothing4
 
         }
 
@@ -172,10 +200,14 @@ public class BoggleGame {
         Random random = new Random();
         String[] dice_grid;
         //choice the small or big grid
-        if (size * size == this.dice_big_grid.length) {
-            dice_grid = dice_big_grid;
-        } else {
-            dice_grid = dice_small_grid;
+        if (size * size == this.dice_hard_grid.length) {
+            dice_grid = dice_hard_grid;
+        }
+        else if (size * size == this.dice_normal_grid.length) {
+            dice_grid = dice_normal_grid;
+        }
+        else {
+            dice_grid = dice_easy_grid;
         }
 
         List<String> diceList = new ArrayList<String>(Arrays.asList(dice_grid));
@@ -310,11 +342,11 @@ public class BoggleGame {
      * @param board The boggle board
      * @param allWords A mutable list of all legal words that can be found, given the boggleGrid grid letters
      */
+
     private void humanMove(BoggleGrid board, Map<String, ArrayList<Position>> allWords) {
         System.out.println("It's your turn to find some words!");
         while (true) {
             System.out.println("Enter H to get a hint");
-            //You write code here!
             //step 1. Print the board for the user, so they can scan it for words
             System.out.println(board);
             //step 2. Get a input (a word) from the user via the console
@@ -359,8 +391,14 @@ public class BoggleGame {
 
     //highscore pull
     public void getScores() throws IOException, BrailleLetterException {
+
         this.highScores.scoreExplanation();
         this.highScores.scoreInterface();
+
     }
+
+
+
+
 
 }
