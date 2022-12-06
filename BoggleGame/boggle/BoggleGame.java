@@ -70,6 +70,7 @@ public class BoggleGame {
     public void playGame() {
         int boardSize;
         while (true) {
+
             System.out.println("Enter 1 to play on a big (5x5) grid; 2 to play on a small (4x4) one:");
             String choiceGrid = scanner.nextLine();
 

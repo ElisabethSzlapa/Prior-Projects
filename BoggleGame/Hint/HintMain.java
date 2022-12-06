@@ -11,7 +11,7 @@ public class HintMain {
 
     /**
      * User choice the hint that they want
-     * 1-get a word location
+     * 1-get a scramble word
      * 2-get the start character and end character form a word
      * 2-get a word
      *
@@ -19,7 +19,7 @@ public class HintMain {
      */
     public static void chose_type(String ct) {
         if (ct.equals("1")) {
-            //initialize the hint_location
+            //initialize the hint_scramble_word
             //show the hint for player
             Hint hint_scramble_word = new Hint(new Hint_scramble_word());
             System.out.println(hint_scramble_word.hint());
