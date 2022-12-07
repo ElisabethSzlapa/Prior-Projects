@@ -246,25 +246,5 @@ public class BoggleStats {
         return this.pScore;
     }
 
-    public Set<String> getComputerWords() {
-        return this.computerWords;
-    }
-
-    public int getcScore() {
-        return this.cScore;
-    }
-
-    public int getcScoreTotal() {
-        return this.cScoreTotal;
-    }
-
-    public double getpAverageWords() {
-        return this.pAverageWords;
-    }
-
-    public double getcAverageWords() {
-        return this.cAverageWords;
-    }
-
 
 }

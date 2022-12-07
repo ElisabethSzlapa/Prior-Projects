@@ -65,9 +65,9 @@ public class BoggleTests {
     @Test
     void endRoundTest() {
         BoggleStats stats = new BoggleStats();
-        stats.endRound();
-        stats.endRound();
-        stats.endRound();
+        stats.endRound(1);
+        stats.endRound(1);
+        stats.endRound(1);
         assertEquals(3, stats.getRound());
     }
 
