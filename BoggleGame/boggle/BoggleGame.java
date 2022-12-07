@@ -176,7 +176,7 @@ public class BoggleGame {
                 u.addUser();
             }
             this.gameStats.endRound(tyep_game);
-            this.highScores.scoreComparer(this.gameStats);
+            this.highScores.scoreComparer(this.gameStats, u); //calls highscores
 
             //Shall we repeat?
             System.out.println("Play again? Type 'Y' or 'N'");
@@ -457,9 +457,10 @@ public class BoggleGame {
 
     //highscore pull
     public void getScores() throws IOException, BrailleLetterException {
-
+        this.highScores.scoreSetup();
         this.highScores.scoreExplanation();
         this.highScores.scoreInterface();
+        this.highScores.scoreSaving();
     }
     public BoggleStats getGameStats(){
         return this.gameStats;

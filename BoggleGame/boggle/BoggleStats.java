@@ -253,4 +253,5 @@ public class BoggleStats {
     public int getcScoreTotal(){return cScoreTotal; }
     public void setcScoreTotal(int cscor){cScoreTotal += cscor;}
 
+
 }
