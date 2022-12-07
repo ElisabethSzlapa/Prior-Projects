@@ -1,33 +1,60 @@
 package State;
 
+import boggle.BoggleStats;
+
 public class Controller {
-    public static Play play;
-    public static Pause pause;
-    public static Exit exit;
+    public static Play play = new Play();
+    public static Pause pause = new Pause();
+    public static Exit exit = new Exit();
 
-    private static TransState tra;
+    private BoggleStats sta;
+    private String ex;
+    private int ty;
+    private TransState tra = new Play();
 
-    Controller(){
+    /*
+     public Controller(){
         play = new Play();
         pause = new Pause();
         exit = new Exit();
     }
-    public void setPlayTransState(){
+     */
+    public void setPlayTransState(String s) {
+        this.ex = s;
         tra = play;
     }
-    public void setPauseTransState(){
+
+    public void setPauseTransState(String s) {
+        this.ex = s;
         tra = pause;
     }
-    public void setExitTransState(){
+
+    public void setExitTransState(BoggleStats s) {
+        this.sta = s;
         tra = exit;
     }
-    public void play(){
-        tra.play();
+
+    public void setTy(int ty){
+        this.ty = ty;
     }
-    public void pause(){
-        tra.pause();
+
+    public void setEX(String s){
+        this.ex = s.toUpperCase();
     }
-    public void exit(){
-        tra.exit();
+    public void setSta(BoggleStats sta){
+        this.sta = sta;
     }
+
+    public void play() {
+        tra.play(this, this.ex);
+    }
+
+    public void pause() {
+        tra.pause(this, this.ex);
+    }
+
+    public void exit() {
+        tra.exit(this.sta, this.ty, this.ex);
+    }
+
 }

@@ -5,6 +5,7 @@ import Highscores.braille.BrailleLetterException;
 import java.io.IOException;
 import Hint.*;
 import User.User;
+import State.*;
 
 import java.sql.Array;
 import java.util.*;
@@ -24,6 +25,9 @@ public class BoggleGame {
     private Highscores highScores;
     public Date start_time = new Date();
     public ArrayList<Date> start_times = new ArrayList<>();
+    private static int tyep_game = 0;
+    public long time_stored = 0;
+    public long middle_time = 0;
     /**
      * dice used to randomize letter assignments for a small grid
      */
@@ -88,13 +92,11 @@ public class BoggleGame {
      * It will loop until the user indicates they are done playing.
      */
     public void playGame() throws InterruptedException {
-        int boardSize;
         User u = new User();
         int pscor = 0;
         int cscor = 0;
         long timrec = 0;
         int boardSize = 0;
-        int tyep_game = 0;
         while (true) {
             System.out.println("Enter your name (not case sensitive)");
             String playerName = scanner.nextLine();
@@ -109,11 +111,10 @@ public class BoggleGame {
                     if(choiceLoad.equals("1")){
                         pscor += u.get_value().getpScoreTotal();
                         cscor += u.get_value().getcScoreTotal();
-                        timrec += u.get_value().getTotal_time_used();
                     }
                 }
             }
-            System.out.println("Enter 1 to play on a big (5x5) grid; 2 to play on a small (4x4) one:");
+            System.out.println("Enter hard to play on a hard (6x6) grid; normal to play on a normal (5x5); easy to play on a normal (4x4):");
             String choiceGrid = scanner.nextLine();
 
             //get grid size preference
@@ -192,7 +193,6 @@ public class BoggleGame {
         if(choiceSave.equals("1")){
             this.gameStats.setpScoreTotal(pscor);
             this.gameStats.setcScoreTotal(cscor);
-            this.gameStats.setTotal_time_used(timrec);
             u.addUser();
         }
         System.out.println("Thanks for playing!");
@@ -388,11 +388,13 @@ public class BoggleGame {
 
     private void humanMove(BoggleGrid board, Map<String, ArrayList<Position>> allWords) {
         System.out.println("It's your turn to find some words!");
+        Controller control = new Controller();
+        control.setTy(tyep_game);
         while (true) {
-            System.out.println("Enter H to get a hint");
+            System.out.println("Enter 'H' to get a hint, 'T' to see time used, 'P' to pause the timer, 'R' to resume timer, and 'EX' to exit.");
             //step 1. Print the board for the user, so they can scan it for words
             System.out.println(board);
-            //step 2. Get a input (a word) from the user via the console
+            //step 2. Get an input (a word) from the user via the console
             String input_word = this.scanner.nextLine().toUpperCase();
             //step 3. Check to see if it is valid (note validity checks should be case-insensitive)
 
@@ -404,14 +406,26 @@ public class BoggleGame {
             }
             if (input_word.equals("T")){
                 Date b = new Date(System.currentTimeMillis());
-                long time_spent = b.getTime() - this.start_time.getTime();
+                long time_spent = b.getTime() - this.start_time.getTime() - time_stored;
                 System.out.println("You already spent " + time_spent/1000 + " seconds.");
             }
-            //if (input_word.equals("P" || "R" || ))
-            //  StateMain state = new StateMain();
-            //  state.main();
-            //  input_word = this.scanner.nextLine().toUpperCase();
-            // }
+            control.setEX(input_word);
+            if(input_word.equals("P")){
+//                System.out.println("P------");
+                control.pause();
+                Date b = new Date(System.currentTimeMillis());
+                middle_time = b.getTime();
+            }else if(input_word.equals("R")){
+//                System.out.println("R-------------");
+                control.play();
+                Date c = new Date(System.currentTimeMillis());
+                time_stored += c.getTime() - middle_time;
+            }else if (input_word.equals("EX")) {
+//                System.out.println("ex--------------");
+                computerMove(allWords);
+                control.setSta(this.gameStats);
+                control.exit();
+            }
 
             //step 4. If it's valid, update the player's word list and score (stored in boggleStats)
             if (allWords.containsKey(input_word) && !this.gameStats.getPlayerWords().contains(input_word)) {

@@ -1,20 +1,23 @@
 package State;
 
-public class Exit implements TransState{
+import boggle.BoggleStats;
+
+public class Exit implements TransState {
     @Override
-    public void pause() {
-        System.out.println("Play is your only option now.");
-        //do nothing
+    public void pause(Controller c, String s) {
+        return;
     }
 
     @Override
-    public void play() {
+    public void play(Controller c, String s) {
+        return;
         //start a new game
     }
 
     @Override
-    public void exit() {
-        System.out.println("Play is your only option now.");
-        //do nothing
+    public void exit(BoggleStats sta, int ty, String s) {
+        sta.endRound(ty);
+        sta.summarizeGame();
+        System.exit(0);
     }
 }

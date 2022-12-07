@@ -39,19 +39,19 @@ public class Highscores {
             }
         }
 
-        double ratioScore = game.getPlayerWords().size()/game.getComputerWords().size();
-        for (String player : ratioHighscores.keySet()){
-            if(player == null){
-                ratioHighscores.put(playerName, ratioScore);
-            }
-            else if (ratioHighscores.get(player) < ratioScore) { //no equals case; scoreboard placement is first come first serve
-                double oldScore = ratioHighscores.get(player);
-                String oldPlayer = player;
-                ratioHighscores.put(playerName, ratioScore);
-                ratioScore = oldScore;
-                playerName = oldPlayer;
-            }
-        }
+//        double ratioScore = game.getPlayerWords().size()/game.getComputerWords().size();
+//        for (String player : ratioHighscores.keySet()){
+//            if(player == null){
+//                ratioHighscores.put(playerName, ratioScore);
+//            }
+//            else if (ratioHighscores.get(player) < ratioScore) { //no equals case; scoreboard placement is first come first serve
+//                double oldScore = ratioHighscores.get(player);
+//                String oldPlayer = player;
+//                ratioHighscores.put(playerName, ratioScore);
+//                ratioScore = oldScore;
+//                playerName = oldPlayer;
+//            }
+//        }
 
     }
     public void overallScore(double currScore, String playerName) {

@@ -1,7 +1,9 @@
 package State;
 
+import boggle.BoggleStats;
+
 public interface TransState {
-    public void pause();
-    public void play();
-    public void exit();
+    void pause(Controller c, String s);
+    void play(Controller c, String s);
+    void exit(BoggleStats sta, int ty, String s);
 }

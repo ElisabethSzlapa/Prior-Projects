@@ -12,7 +12,7 @@ public class Main {
     * Main method. 
     * @param args command line arguments.
     **/
-    public static void main(String[] args) throws IOException, BrailleLetterException {
+    public static void main(String[] args) throws IOException, BrailleLetterException, InterruptedException {
         BoggleGame b = new BoggleGame();
         b.giveInstructions();
         b.playGame();
