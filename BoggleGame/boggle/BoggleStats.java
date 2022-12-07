@@ -1,5 +1,7 @@
 package boggle;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,11 +32,11 @@ public class BoggleStats {
     /**
      * the player's total score across every round
      */
-    private int pScoreTotal;
+    private static int pScoreTotal;
     /**
      * the computer's total score across every round
      */
-    private int cScoreTotal;
+    private static int cScoreTotal;
     /**
      * the average number of words, per round, found by the player
      */
@@ -47,8 +49,14 @@ public class BoggleStats {
      * the current round being played
      */
     private int round;
-
-
+    /**
+     * the time used in a single round
+     */
+    private static long  rtime_used;
+    /**
+     * the time used in a game
+     */
+    private static long total_time_used;
     /**
      * enumarable types of players (human or computer)
      */
@@ -78,6 +86,8 @@ public class BoggleStats {
         this.round = 0;
         this.playerWords = new HashSet<String>();
         this.computerWords = new HashSet<String>();
+        this.rtime_used = 0;
+        this.total_time_used = 0;
     }
 
     /*
@@ -133,12 +143,18 @@ public class BoggleStats {
             ScoreCalculatorFactory f = new ScoreCalculatorFactory();
             sc = f.calculateScore("Easy", this.pScore);
         }
+        // get the total time used
+        Date b = new Date(System.currentTimeMillis());
+        BoggleGame time = new BoggleGame();
+        System.out.println("time b:" + b.getTime() + "time a:" + time.getStart_time().getTime());
+        this.rtime_used = b.getTime() - time.getStart_time().getTime();
+        // add it to the total time used
+        this.total_time_used += this.rtime_used;
 
         // get the player's last total number word
         double last_total_number_word_player = this.pAverageWords * (this.round - 1);
         // last total add new number of word, then divide by the round to get new average
         this.pAverageWords = (last_total_number_word_player + this.playerWords.size()) / this.round;
-
         // same as player average words
         double last_total_number_word_computer = this.cAverageWords * (this.round - 1);
         this.cAverageWords = (last_total_number_word_computer + this.computerWords.size()) / this.round;
@@ -151,7 +167,8 @@ public class BoggleStats {
         this.pScore = 0;//reset
         this.cScoreTotal += this.cScore;//update the total scores
         this.cScore = 0;//reset
-
+        this.total_time_used += rtime_used;
+        this.rtime_used = 0;
         this.round += 1;
 
     }
@@ -177,6 +194,7 @@ public class BoggleStats {
         System.out.println(Player.Human + ":");
         System.out.printf("You score are %f\n", sc);
         System.out.printf("You found %d words\n", this.playerWords.size());
+        System.out.printf("You spent %d seconds in this round\n", this.rtime_used);
         for (String word : this.playerWords) {
             System.out.print(word);
             System.out.print(", ");
@@ -208,7 +226,7 @@ public class BoggleStats {
         System.out.println(Player.Human + ":");
         System.out.printf("You total score are %d\n", this.pScoreTotal);
         System.out.printf("The average number of words you found are %f words\n", this.pAverageWords);
-
+        System.out.printf("The total time you spent are %d seconds\n", this.total_time_used);
         System.out.println("----------------");
 
         System.out.println(Player.Computer + ":");
@@ -245,6 +263,11 @@ public class BoggleStats {
     public int getScore() {
         return this.pScore;
     }
+    public int getpScoreTotal(){return pScoreTotal; }
+    public void setpScoreTotal(int pscor){pScoreTotal += pscor;}
+    public int getcScoreTotal(){return cScoreTotal; }
+    public void setcScoreTotal(int cscor){cScoreTotal += cscor;}
 
-
+    public long getTotal_time_used() {return total_time_used; }
+    public void setTotal_time_used(long timus){total_time_used += timus;}
 }

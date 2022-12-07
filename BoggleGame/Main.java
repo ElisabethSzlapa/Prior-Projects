@@ -15,9 +15,7 @@ public class Main {
     public static void main(String[] args) throws IOException, BrailleLetterException {
         BoggleGame b = new BoggleGame();
         b.giveInstructions();
-
         b.playGame();
-
         b.getScores();
     }
 

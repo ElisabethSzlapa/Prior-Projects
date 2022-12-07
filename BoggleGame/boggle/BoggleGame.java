@@ -2,12 +2,12 @@ package boggle;
 
 import Highscores.Highscores;
 import Highscores.braille.BrailleLetterException;
-
 import java.io.IOException;
 import Hint.*;
+import User.User;
 
+import java.sql.Array;
 import java.util.*;
-
 /**
  * The BoggleGame class for the first Assignment in CSC207, Fall 2022
  */
@@ -22,7 +22,8 @@ public class BoggleGame {
      */
     private BoggleStats gameStats;
     private Highscores highScores;
-
+    public Date start_time = new Date();
+    public ArrayList<Date> start_times = new ArrayList<>();
     /**
      * dice used to randomize letter assignments for a small grid
      */
@@ -76,17 +77,43 @@ public class BoggleGame {
         System.out.println("\nHit return when you're ready...");
     }
 
-
+    public ArrayList<Date> getStart_times(){
+        return start_times;
+    }
+    public void setStart_times(ArrayList<Date> start_times){
+        this.start_times = start_times;
+    }
     /*
      * Gets information from the user to initialize a new Boggle game.
      * It will loop until the user indicates they are done playing.
      */
-    public void playGame() {
+    public void playGame() throws InterruptedException {
+        int boardSize;
+        User u = new User();
+        int pscor = 0;
+        int cscor = 0;
+        long timrec = 0;
         int boardSize = 0;
         int tyep_game = 0;
         while (true) {
-
-            System.out.println("Enter 'hard' to play on a hard (6x6) grid; normal to play on a normal (5x5); easy to play on a normal (4x4):");
+            System.out.println("Enter your name (not case sensitive)");
+            String playerName = scanner.nextLine();
+            u.setUser(playerName);
+            if(u.check_registered()) {
+                System.out.println("Enter '1' to load states, '2' to start over.");
+                String choiceLoad = scanner.nextLine();
+                while (!choiceLoad.equals("1") && !choiceLoad.equals("2")) {
+                    System.out.println("Please try again.");
+                    System.out.println("Enter '1' to load states, '2' to start over.");
+                    choiceLoad = scanner.nextLine();
+                    if(choiceLoad.equals("1")){
+                        pscor += u.get_value().getpScoreTotal();
+                        cscor += u.get_value().getcScoreTotal();
+                        timrec += u.get_value().getTotal_time_used();
+                    }
+                }
+            }
+            System.out.println("Enter 1 to play on a big (5x5) grid; 2 to play on a small (4x4) one:");
             String choiceGrid = scanner.nextLine();
 
             //get grid size preference
@@ -135,6 +162,7 @@ public class BoggleGame {
                     choiceLetters = scanner.nextLine();
                 }
                 playRound(boardSize, choiceLetters.toUpperCase());
+
             }
 
             //round is over! So, store the statistics, and end the round.
@@ -159,6 +187,14 @@ public class BoggleGame {
 
         //we are done with the game! So, summarize all the play that has transpired and exit.
         this.gameStats.summarizeGame();
+        System.out.println("press '1' to save, press '2' to continue without saving");
+        String choiceSave = scanner.nextLine();
+        if(choiceSave.equals("1")){
+            this.gameStats.setpScoreTotal(pscor);
+            this.gameStats.setcScoreTotal(cscor);
+            this.gameStats.setTotal_time_used(timrec);
+            u.addUser();
+        }
         System.out.println("Thanks for playing!");
     }
 
@@ -180,6 +216,9 @@ public class BoggleGame {
         //initialize the hint and add all words in hint list
         HintMain h = new HintMain();
         h.addwords(allWords);
+        //Record the starting time
+        this.start_time = new Date(System.currentTimeMillis());
+
         //step 4. allow the user to try to find some words on the grid
         humanMove(grid, allWords);
         //step 5. allow the computer to identify remaining words
@@ -220,6 +259,9 @@ public class BoggleGame {
             letter.append(s.charAt(dice_face));
         }
         return letter.toString();
+    }
+    public Date getStart_time(){
+        return this.start_time;
     }
 
 
@@ -360,7 +402,16 @@ public class BoggleGame {
                 h.main();
                 input_word = this.scanner.nextLine().toUpperCase();
             }
-
+            if (input_word.equals("T")){
+                Date b = new Date(System.currentTimeMillis());
+                long time_spent = b.getTime() - this.start_time.getTime();
+                System.out.println("You already spent " + time_spent/1000 + " seconds.");
+            }
+            //if (input_word.equals("P" || "R" || ))
+            //  StateMain state = new StateMain();
+            //  state.main();
+            //  input_word = this.scanner.nextLine().toUpperCase();
+            // }
 
             //step 4. If it's valid, update the player's word list and score (stored in boggleStats)
             if (allWords.containsKey(input_word) && !this.gameStats.getPlayerWords().contains(input_word)) {
@@ -396,9 +447,7 @@ public class BoggleGame {
         this.highScores.scoreExplanation();
         this.highScores.scoreInterface();
     }
-
-
-
-
-
+    public BoggleStats getGameStats(){
+        return this.gameStats;
+    }
 }
