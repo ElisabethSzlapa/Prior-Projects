@@ -91,7 +91,10 @@ public class Highscores {
                 playerName = oldPlayer;
             }
         }
-        double ratioScore = game.getPlayerWords().size()/game.getComputerWords().size();
+        double ratioScore = 1.00;
+        if(game.getComputerWords().size() != 0){
+            ratioScore = game.getPlayerWords().size()/game.getComputerWords().size();
+        }
         for (String player : ratioHighscores.keySet()) {
             if (player == null) {
 
