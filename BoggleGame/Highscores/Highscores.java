@@ -202,7 +202,7 @@ public class Highscores {
                 break;
             }
             else {
-                System.out.println(translator.translateLine("Changed your mind about seeing the scores? Hit 4 to exit."));
+                System.out.println(translator.translateLine("Thats not one of the numbers! Changed your mind about seeing the scores? Hit 4 to exit."));
 
             }
 

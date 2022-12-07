@@ -65,7 +65,7 @@ public class BrailleTranslator {
      * @throws IOException if file cannot be accessed
      */
     private void initializeMap() throws IOException {
-        try (BufferedReader br = new BufferedReader(new FileReader("dictionary.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("BoggleGame/Highscores/braille/dictionary.txt"))) {
             String line;
             while ((line = br.readLine()) != null) {
                 List<String> chars = Arrays.asList(line.substring(4,6), line.substring(8, 10), line.substring(12, 14));

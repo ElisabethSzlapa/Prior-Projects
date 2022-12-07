@@ -459,7 +459,6 @@ public class BoggleGame {
     public void getScores() throws IOException, BrailleLetterException {
         this.highScores.scoreSetup();
         this.highScores.scoreExplanation();
-        this.highScores.scoreInterface();
         this.highScores.scoreSaving();
     }
     public BoggleStats getGameStats(){
