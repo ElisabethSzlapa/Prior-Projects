@@ -140,6 +140,7 @@ public class BoggleGame {
             //round is over! So, store the statistics, and end the round.
             this.gameStats.summarizeRound(tyep_game);
             this.gameStats.endRound(tyep_game);
+            this.highScores.scoreComparer(this.gameStats);
 
             //Shall we repeat?
             System.out.println("Play again? Type 'Y' or 'N'");
@@ -394,7 +395,6 @@ public class BoggleGame {
 
         this.highScores.scoreExplanation();
         this.highScores.scoreInterface();
-
     }
 
 

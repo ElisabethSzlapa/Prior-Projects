@@ -227,6 +227,12 @@ public class BoggleStats {
 
 
     /*
+     * @return Set<String> The computer's word list
+     */
+    public Set<String> getComputerWords() {
+        return this.computerWords;
+    }
+    /*
      * @return int The number of rounds played
      */
     public int getRound() {

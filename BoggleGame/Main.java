@@ -16,7 +16,6 @@ public class Main {
         BoggleGame b = new BoggleGame();
         b.giveInstructions();
 
-        b.getScores();
         b.playGame();
 
         b.getScores();
