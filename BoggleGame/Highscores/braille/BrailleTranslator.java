@@ -102,7 +102,14 @@ public class BrailleTranslator {
 
         }
         this.translation.add(braille);
-        return  braille.toString();
+        String finalMessage = "";
+        for(List<String> list : this.translation){
+            for(String element : list) {
+                finalMessage += element.toString();
+            }
+        }
+        this.translation = new ArrayList<>(); //empty for next phrase
+        return  finalMessage;
 
 
     }

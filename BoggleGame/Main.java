@@ -14,7 +14,7 @@ public class Main {
     **/
     public static void main(String[] args) throws IOException, BrailleLetterException, InterruptedException {
         BoggleGame b = new BoggleGame();
-
+        b.getScores();
 
     b.giveInstructions();
 
