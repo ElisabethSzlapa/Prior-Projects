@@ -160,6 +160,7 @@ public class Highscores {
             }
             else {
                 System.out.println("That's not one of the numbers! Changed your mind about seeing the scores? Hit 4 to exit.");
+                choice = scanner.nextLine();
             }
 
 
