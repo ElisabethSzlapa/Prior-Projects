@@ -209,6 +209,10 @@ public class Highscores {
 
         BrailleTranslator translator = new BrailleTranslator();
         int i = 1;
+        if(scoreboard.keySet().isEmpty()){
+            System.out.println(translator.translateLine("Scoreboard empty!"));
+            scoreExplanation();
+        }
         for (String key : scoreboard.keySet()){
             System.out.println(i+". " + translator.translateLine(key)+", "+scoreboard.get(key));
             i++;
