@@ -28,9 +28,9 @@ public class Highscores {
     }
 
     public void scoreSetup() throws FileNotFoundException {
-        File pointHigh = new File("BoggleGame/Highscores/pointscores.txt");
-        File ratioHigh = new File("BoggleGame/Highscores/ratioscores.txt");
-        File overallHigh = new File("BoggleGame/Highscores/overallscores.txt");
+        File pointHigh = new File("pointscores.txt");
+        File ratioHigh = new File("ratioscores.txt");
+        File overallHigh = new File("overallscores.txt");
 
         Scanner pointReader = new Scanner(pointHigh);
         while(pointReader.hasNextLine()){
@@ -55,9 +55,9 @@ public class Highscores {
 
     }
     public void scoreSaving() throws IOException {
-        FileWriter pointWriter = new FileWriter("BoggleGame/Highscores/pointscores.txt");
-        FileWriter ratioWriter = new FileWriter("BoggleGame/Highscores/ratioscores.txt");
-        FileWriter overallWriter = new FileWriter("BoggleGame/Highscores/overallscores.txt");
+        FileWriter pointWriter = new FileWriter("pointscores.txt");
+        FileWriter ratioWriter = new FileWriter("ratioscores.txt");
+        FileWriter overallWriter = new FileWriter("overallscores.txt");
 
         for (String player : allUsersHighscores.keySet()) {
             overallWriter.write(player + "," + String.valueOf(allUsersHighscores.get(player)));
