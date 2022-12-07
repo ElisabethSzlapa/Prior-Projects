@@ -1,16 +1,21 @@
 package ScoreCalculator2;
 
 public class ScoreCalculatorFactory {
-    public ScoreCalculator calculateScore(String difficulty) {
+    public double calculateScore(String difficulty, int score) {
         if (difficulty.equals("Hard")) {
-            return new DifficultyHard();
+            DifficultyHard h = new DifficultyHard();
+            h.Difficulty_Hard(score);
+            return h.getScore();
         } else if (difficulty.equals("Normal")) {
-            return new DifficultyNormal();
-
+            DifficultyNormal n = new DifficultyNormal();
+            n.Difficulty_Normal(score);
+            return n.getScore();
         } else if (difficulty.equals("Easy")) {
-            return new DifficultyEasy();
-
-        }else
-            return null;
+            DifficultyEasy e = new DifficultyEasy();
+            e.Difficulty_Easy(score);
+            return e.getScore();
+        }
+        return 0;
     }
+
 }

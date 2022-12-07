@@ -2,7 +2,8 @@ package boggle;
 
 import java.util.HashSet;
 import java.util.Set;
-import ScoreCalculator.*;
+
+import ScoreCalculator2.ScoreCalculatorFactory;
 
 /**
  * The BoggleStats class for the first Assignment in CSC207, Fall 2022
@@ -77,8 +78,6 @@ public class BoggleStats {
         this.round = 0;
         this.playerWords = new HashSet<String>();
         this.computerWords = new HashSet<String>();
-
-
     }
 
     /*
@@ -122,7 +121,19 @@ public class BoggleStats {
      * reset the current scores for each player to zero.
      * Finally, increment the current round number by 1.
      */
-    public void endRound() {
+    public void endRound(int type) {
+        double sc = 0;
+        if (type == 1) {
+            ScoreCalculatorFactory f = new ScoreCalculatorFactory();
+            sc = f.calculateScore("Hard", this.pScore);
+        }else if (type == 2) {
+            ScoreCalculatorFactory f = new ScoreCalculatorFactory();
+            sc = f.calculateScore("Normal", this.pScore);
+        }else {
+            ScoreCalculatorFactory f = new ScoreCalculatorFactory();
+            sc = f.calculateScore("Easy", this.pScore);
+        }
+
         // get the player's last total number word
         double last_total_number_word_player = this.pAverageWords * (this.round - 1);
         // last total add new number of word, then divide by the round to get new average
@@ -136,7 +147,7 @@ public class BoggleStats {
         this.playerWords.clear();
         this.computerWords.clear();
 
-        this.pScoreTotal += this.pScore;//update the total scores
+        this.pScoreTotal += sc;//update the total scores
         this.pScore = 0;//reset
         this.cScoreTotal += this.cScore;//update the total scores
         this.cScore = 0;//reset
@@ -151,9 +162,20 @@ public class BoggleStats {
      * Each number of words each player found this round.
      * Each player's score this round.
      */
-    public void summarizeRound() {
+    public void summarizeRound(int type) {
+        double sc = 0;
+        if (type == 1) {
+            ScoreCalculatorFactory f = new ScoreCalculatorFactory();
+            sc = f.calculateScore("Hard", this.pScore);
+        }else if (type == 2) {
+            ScoreCalculatorFactory f = new ScoreCalculatorFactory();
+            sc = f.calculateScore("Normal", this.pScore);
+        }else {
+            ScoreCalculatorFactory f = new ScoreCalculatorFactory();
+            sc = f.calculateScore("Easy", this.pScore);
+        }
         System.out.println(Player.Human + ":");
-        System.out.printf("You score are %d\n", this.pScore );
+        System.out.printf("You score are %f\n", sc);
         System.out.printf("You found %d words\n", this.playerWords.size());
         for (String word : this.playerWords) {
             System.out.print(word);
@@ -181,6 +203,7 @@ public class BoggleStats {
      * The average number of words found by each player per round.
      */
     public void summarizeGame() {
+
         System.out.printf("Total Round: %d\n", this.round);
         System.out.println(Player.Human + ":");
         System.out.printf("You total score are %d\n", this.pScoreTotal);
@@ -192,6 +215,7 @@ public class BoggleStats {
         System.out.printf("Computer total score are %d\n", this.cScoreTotal);
         System.out.printf("The average number of words computer found are %f words\n", this.cAverageWords);
 
+
     }
 
     /*
@@ -200,6 +224,7 @@ public class BoggleStats {
     public Set<String> getPlayerWords() {
         return this.playerWords;
     }
+
 
     /*
      * @return int The number of rounds played
@@ -213,6 +238,26 @@ public class BoggleStats {
      */
     public int getScore() {
         return this.pScore;
+    }
+
+    public Set<String> getComputerWords() {
+        return this.computerWords;
+    }
+
+    public int getcScore() {
+        return this.cScore;
+    }
+
+    public int getcScoreTotal() {
+        return this.cScoreTotal;
+    }
+
+    public double getpAverageWords() {
+        return this.pAverageWords;
+    }
+
+    public double getcAverageWords() {
+        return this.cAverageWords;
     }
 
 

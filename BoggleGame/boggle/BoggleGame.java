@@ -5,8 +5,6 @@ import Highscores.braille.BrailleLetterException;
 
 import java.io.IOException;
 import Hint.*;
-import ScoreCalculator2.ScoreCalculator;
-import ScoreCalculator2.ScoreCalculatorMain;
 
 import java.util.*;
 
@@ -85,9 +83,10 @@ public class BoggleGame {
      */
     public void playGame() {
         int boardSize = 0;
+        int tyep_game = 0;
         while (true) {
 
-            System.out.println("Enter hard to play on a hard (6x6) grid; normal to play on a normal (5x5); easy to play on a normal (4x4):");
+            System.out.println("Enter 'hard' to play on a hard (6x6) grid; normal to play on a normal (5x5); easy to play on a normal (4x4):");
             String choiceGrid = scanner.nextLine();
 
             //get grid size preference
@@ -99,16 +98,17 @@ public class BoggleGame {
             }
 
             if (choiceGrid.equals("hard")) {
-                ScoreCalculatorMain calculatorMain = new ScoreCalculatorMain();
-                calculatorMain.gameMode(choiceGrid);
+                tyep_game = 1;
                 boardSize = 6;
 
             }
-            if (choiceGrid.equals("normal")){
+            if (choiceGrid.equals("normal")) {
+                tyep_game = 2;
                 boardSize = 5;
 
             }
             if (choiceGrid.equals("easy")) {
+                tyep_game = 3;
                 boardSize = 4;
 
             }
@@ -138,21 +138,21 @@ public class BoggleGame {
             }
 
             //round is over! So, store the statistics, and end the round.
-            this.gameStats.summarizeRound();
-            this.gameStats.endRound();
+            this.gameStats.summarizeRound(tyep_game);
+            this.gameStats.endRound(tyep_game);
 
             //Shall we repeat?
             System.out.println("Play again? Type 'Y' or 'N'");
             String choiceRepeat = scanner.nextLine().toUpperCase();
 
-            if(choiceRepeat == "") break; //end game if user inputs nothing
-            while(!choiceRepeat.equals("Y") && !choiceRepeat.equals("N")){
+            if (choiceRepeat == "") break; //end game if user inputs nothing
+            while (!choiceRepeat.equals("Y") && !choiceRepeat.equals("N")) {
                 System.out.println("Please try again.");
                 System.out.println("Play again? Type 'Y' or 'N'");
                 choiceRepeat = scanner.nextLine().toUpperCase();
             }
 
-            if(choiceRepeat == "" || choiceRepeat.equals("N")) break; //end game if user inputs nothing4
+            if (choiceRepeat == "" || choiceRepeat.equals("N")) break; //end game if user inputs nothing4
 
         }
 

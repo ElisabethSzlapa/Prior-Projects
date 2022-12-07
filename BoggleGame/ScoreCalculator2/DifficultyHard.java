@@ -1,10 +1,15 @@
 package ScoreCalculator2;
 
-public class DifficultyHard extends ScoreCalculator{
-    public void DifficultyHard(){
-
-        setScore(getValue.getScore() * 3);
-        System.out.println("difficulty hard working");
+public class DifficultyHard{
+    private double score;
+    public void Difficulty_Hard(int pscore){
+        this.score = pscore * 3;
     }
 
+    public double getScore(){
+        return this.score;
+    }
+
+
 }
+
