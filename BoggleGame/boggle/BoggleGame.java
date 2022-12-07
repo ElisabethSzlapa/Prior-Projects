@@ -114,14 +114,14 @@ public class BoggleGame {
                     }
                 }
             }
-            System.out.println("Enter hard to play on a hard (6x6) grid; normal to play on a normal (5x5); easy to play on a normal (4x4):");
+            System.out.println("Enter 'hard' to play on a hard (6x6) grid; 'normal' to play on a normal (5x5); 'easy' to play on a normal (4x4):");
             String choiceGrid = scanner.nextLine();
 
             //get grid size preference
             if (choiceGrid == "") break; //end game if user inputs nothing
             while (!choiceGrid.equals("hard") && !choiceGrid.equals("normal") && !choiceGrid.equals("easy")) {
                 System.out.println("Please try again.");
-                System.out.println("Enter hard to play on a hard (6x6) grid; normal to play on a normal (5x5); easy to play on a normal (4x4):");
+                System.out.println("Enter 'hard' to play on a hard (6x6) grid; 'normal' to play on a normal (5x5); 'easy' to play on a normal (4x4):");
                 choiceGrid = scanner.nextLine();
             }
 
