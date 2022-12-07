@@ -168,6 +168,13 @@ public class BoggleGame {
 
             //round is over! So, store the statistics, and end the round.
             this.gameStats.summarizeRound(tyep_game);
+            System.out.println("press '1' to save, press '2' to continue without saving");
+            String choiceSave = scanner.nextLine();
+            if(choiceSave.equals("1")){
+                this.gameStats.setpScoreTotal(pscor);
+                this.gameStats.setcScoreTotal(cscor);
+                u.addUser();
+            }
             this.gameStats.endRound(tyep_game);
             this.highScores.scoreComparer(this.gameStats);
 
@@ -188,13 +195,6 @@ public class BoggleGame {
 
         //we are done with the game! So, summarize all the play that has transpired and exit.
         this.gameStats.summarizeGame();
-        System.out.println("press '1' to save, press '2' to continue without saving");
-        String choiceSave = scanner.nextLine();
-        if(choiceSave.equals("1")){
-            this.gameStats.setpScoreTotal(pscor);
-            this.gameStats.setcScoreTotal(cscor);
-            u.addUser();
-        }
         System.out.println("Thanks for playing!");
     }
 
