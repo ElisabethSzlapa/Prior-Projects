@@ -27,4 +27,7 @@ public class User {
     public BoggleStats get_value(){
         return this.userBase.get(this.username);
     }
+    public String getUsername(){
+        return this.username;
+    }
 }

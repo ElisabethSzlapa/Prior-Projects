@@ -77,7 +77,7 @@ public class Highscores {
 
     public void scoreComparer(BoggleStats game, User u) {
         double currScore = game.getScore();
-        String playerName = u.toString();
+        String playerName = u.getUsername();
         overallScore(currScore, playerName);
         for (String player : pointHighscores.keySet()){
             if(player == null){

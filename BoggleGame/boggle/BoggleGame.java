@@ -28,6 +28,7 @@ public class BoggleGame {
     private static int tyep_game = 0;
     public long time_stored = 0;
     public long middle_time = 0;
+    private User user;
     /**
      * dice used to randomize letter assignments for a small grid
      */
@@ -101,6 +102,7 @@ public class BoggleGame {
             System.out.println("Enter your name (not case sensitive)");
             String playerName = scanner.nextLine();
             u.setUser(playerName);
+            this.user = u;
             if(u.check_registered()) {
                 System.out.println("Enter '1' to load states, '2' to start over.");
                 String choiceLoad = scanner.nextLine();
@@ -458,6 +460,7 @@ public class BoggleGame {
     //highscore pull
     public void getScores() throws IOException, BrailleLetterException {
         this.highScores.scoreSetup();
+        this.highScores.scoreComparer(gameStats, user);
         this.highScores.scoreExplanation();
         this.highScores.scoreSaving();
     }
